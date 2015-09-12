@@ -19,6 +19,8 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Resolution;
 import org.hibernate.search.annotations.Store;
 
+import com.iboss.enums.AccountType;
+
 @Entity
 @Table(name = "USER")
 @Indexed
@@ -53,6 +55,9 @@ public class User {
 	@Column(name = "BIRTH_DATE")
 	private Date birthDate;
 
+	@Column(name = "ROLE")
+	private AccountType role;
+	
 	//@IndexedEmbedded
 	@OneToMany(mappedBy = "user")
 	private List<Address> address;
@@ -119,6 +124,14 @@ public class User {
 
 	public void setAddress(List<Address> address) {
 		this.address = address;
+	}
+
+	public AccountType getRole() {
+		return role;
+	}
+
+	public void setRole(AccountType role) {
+		this.role = role;
 	}
 
 }
