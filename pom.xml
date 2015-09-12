@@ -13,12 +13,12 @@
 		<name>iBoss</name>
 		<url>http://www.iBoss.com</url>
 	</organization>
-<!-- 	<packaging>war</packaging> -->
+	<!-- <packaging>war</packaging> -->
 	<properties>
 		<jdk.version>1.7</jdk.version>
 		<spring.version>4.2.0.RELEASE</spring.version>
-		<hibernate.version>4.3.11.Final</hibernate.version>
-		<spring.security.version>3.2.3.RELEASE</spring.security.version>
+		<spring.security.version>4.0.2.RELEASE</spring.security.version>
+		<hibernate.version>4.3.10.Final</hibernate.version>
 		<mysql.connector.version>5.1.31</mysql.connector.version>
 		<jstl.version>1.2</jstl.version>
 		<log4j.version>1.2.17</log4j.version>
@@ -58,7 +58,18 @@
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
 		<!-- Spring SFTP Configuration -->
 		<dependency>
@@ -83,20 +94,8 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
-			<version>4.0.2.RELEASE</version>
+			<version>${spring.security.version}</version> 
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		
-<!-- 	    <dependency> -->
-<!-- 	        <groupId>org.springframework.data</groupId> -->
-<!-- 	        <artifactId>spring-data-solr</artifactId> -->
-<!-- 	        <version>1.5.0.RELEASE</version> -->
-<!-- 	    </dependency> -->
 
 		<!-- jstl for jsp page -->
 		<dependency>
@@ -117,34 +116,32 @@
 			<artifactId>hibernate-ehcache</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>5.1.3.Final</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-search-orm</artifactId>
-		    <version>5.3.0.Final</version>
+			<version>5.2.1.Final</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-queryparser</artifactId>
-			<version>4.6.1</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-orm</artifactId>
+			<version>5.3.0.Final</version>
 		</dependency>
 
+		<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-queryparser</artifactId>
+		<version>4.10.4</version>
+		</dependency>
 		
-
 		<!-- jsr303 validation -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.1.0.Final</version>
 		</dependency>
-		
+
 
 		<!-- MySQL -->
 		<dependency>
@@ -252,7 +249,7 @@
 			<artifactId>groovy-all</artifactId>
 			<version>1.7.5</version>
 		</dependency>
-		
+
 		<!-- Gson: Java to Json conversion -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -285,41 +282,15 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<!-- <build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<dependencies>
-					<dependency>
-						<groupId>org.springframework</groupId>
-						<artifactId>springloaded</artifactId>
-						<version>1.2.0.RELEASE</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-				<jvmArguments>
-				-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
-				</jvmArguments>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<verbose>true</verbose>
-					<debug>true</debug>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build> -->
+	<!-- <build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
+		<artifactId>spring-boot-maven-plugin</artifactId> <dependencies> <dependency> 
+		<groupId>org.springframework</groupId> <artifactId>springloaded</artifactId> 
+		<version>1.2.0.RELEASE</version> </dependency> </dependencies> <configuration> 
+		<jvmArguments> -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 
+		</jvmArguments> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-compiler-plugin</artifactId> <configuration> <verbose>true</verbose> 
+		<debug>true</debug> <source>1.7</source> <target>1.7</target> </configuration> 
+		</plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
+		<configuration> <failOnMissingWebXml>false</failOnMissingWebXml> </configuration> 
+		</plugin> </plugins> </build> -->
 </project>

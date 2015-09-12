@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 public abstract class SimpleHibernateRepository<T, PK extends Serializable> {
 
@@ -46,37 +47,45 @@ public abstract class SimpleHibernateRepository<T, PK extends Serializable> {
 //	}
 	
 	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
 	public T findById(PK id) {
 		return (T) getSessionFactory().getCurrentSession().get(entity, id);
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
 	public List<T> findAll() {
 		return getSessionFactory().getCurrentSession().createCriteria(entity).list();
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = false)
 	public PK save(T entity) {
 		return (PK) getSessionFactory().getCurrentSession().save(entity);
 	}
 
+	@Transactional(readOnly = false)
 	public void saveAll(Iterable<T> entities) {
 		getSessionFactory().getCurrentSession().saveOrUpdate(entities);
 	}
 
+	@Transactional(readOnly = false)
 	public void update(T entity) {
 		getSessionFactory().getCurrentSession().saveOrUpdate(entity);
 	}
 
+	@Transactional(readOnly = false)
 	public void delete(T entity) {
 		getSessionFactory().getCurrentSession().delete(entity);
 	}
 
+	@Transactional(readOnly = false)
 	public void deleteAll(Iterable<T> entities) {
 		getSessionFactory().getCurrentSession().delete(entities);
 	}
 
 	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
 	public T findByProperty(Object key, Object value) {
 		List<T> results = null;
 		T result = null;

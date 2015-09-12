@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.iboss.repository.JobsRepository;
+
 @Controller
 public class IBossController {
 
@@ -25,6 +27,9 @@ public class IBossController {
 	@Autowired
 	MessageSource messageSource;
 
+	@Autowired
+	JobsRepository jobsRepository;
+	
 	@RequestMapping(value = "/" , method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView welcomePage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		LOGGER.info("Inside / path.....");
@@ -34,7 +39,21 @@ public class IBossController {
 	@RequestMapping(value = "/home.htm", method = RequestMethod.GET)
 	public ModelAndView home() {
 		LOGGER.info("Inside home method.....");		
-		ModelAndView model = new ModelAndView();		
+		ModelAndView model = new ModelAndView();	
+		/*try {
+
+			StopWatch watch = new StopWatch();
+			watch.start();
+
+			List<User> users = jobsRepository.searchJobs("pankaj");
+			
+			watch.stop();			
+			LOGGER.info("Total time using Lucene: " + watch.getTotalTimeSeconds());
+			
+			LOGGER.info("Number of users: " + users);		
+		} catch (Exception e) {
+			LOGGER.error("Error occurred while fetching users: ", e);
+		}*/
 		model.setViewName("home");
 		return model;
 	}

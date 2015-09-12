@@ -1,49 +1,38 @@
 package com.iboss.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
-import org.apache.lucene.util.Version;
-import org.hibernate.Query;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.iboss.entity.User;
 
-import net.sf.ehcache.hibernate.HibernateUtil;
-
+@Repository
 public class JobsRepository extends SimpleHibernateRepository<User, Long> {
 
 	protected JobsRepository() {
 		super(User.class);
 	}
 
-	/*public List<User> searchJobs() {
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<User> searchJobs(String keyword) {
+		List<User> result = null;
+		try {
+			
+			FullTextSession searchSession = Search.getFullTextSession(getSessionFactory().getCurrentSession());
+			final QueryBuilder b = searchSession.getSearchFactory().buildQueryBuilder().forEntity(User.class).get();
+			org.apache.lucene.search.Query luceneQuery = b.keyword().onField("userUUID").matching(keyword).createQuery();
 
-//		FullTextSession searchSession = Search.getFullTextSession(getSessionFactory().getCurrentSession());
-//		(new String[1]
-//		MultiFieldQueryParser parser=new MultiFieldQueryParser(Version.LUCENE_46, new ArrayList<String>(HibernateUtil.getSearchFields()).toArray(new String[1]),new StandardAnalyzer());
-//	    try {
-//	      Query q=parser.parse(query);
-//	      newFrom=from;
-//	      boolean more=true;
-//	      while (more && results.size() < PAGE_SIZE) {
-//	        more=addResults(q,fullTextSession,newFrom);
-//	      }
-//	    } catch (    Exception e) {
-//	      e.printStackTrace();
-//	    }
+			org.hibernate.Query fullTextQuery = searchSession.createFullTextQuery(luceneQuery);
 
-//		QueryParser parser = new QueryParser(Version.LUCENE_32, "contenu", new StandardAnalyzer(Version.LUCENE_32));
-//
-//		org.apache.lucene.search.Query luceneQuery = parser.parse("décarbonateront");
-//
-//		org.hibernate.Query hibQuery = searchSession.createFullTextQuery(luceneQuery, User.class);
-//
-//		List<User> result = hibQuery.list();
-//
-//		return result;
-	}*/
+			result = fullTextQuery.list(); // return a list of managed objects
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
