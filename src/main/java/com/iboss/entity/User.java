@@ -39,6 +39,14 @@ public class User {
 	@Column(name = "ACCOUNT_ID", unique = true, nullable = false, length = 60)
 	private String accountId;
 
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Column(name = "USER_NAME", unique = true, nullable = false, length = 60)
+	private String userName;
+
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Column(name = "Email_ID", unique = true, nullable = false, length = 50)
+	private String emailId;
+
 	@Column(name = "PASSWORD", nullable = false, length = 20)
 	private String password;
 
@@ -57,10 +65,20 @@ public class User {
 
 	@Column(name = "ROLE")
 	private AccountType role;
-	
-	//@IndexedEmbedded
+
+	// @IndexedEmbedded
 	@OneToMany(mappedBy = "user")
 	private List<Address> address;
+
+	@OneToMany(mappedBy = "user")
+	private List<UserQualification> userQualifications;
+	
+	@OneToMany(mappedBy = "user")
+	private List<UserPortfolio> userPortfolios;	
+	
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Column(name = "COUNTRY_ID")
+	private Long countryId;
 
 	public Long getId() {
 		return id;
@@ -132,6 +150,30 @@ public class User {
 
 	public void setRole(AccountType role) {
 		this.role = role;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+	public Long getCountryId() {
+		return countryId;
+	}
+
+	public void setCountryId(Long countryId) {
+		this.countryId = countryId;
 	}
 
 }
