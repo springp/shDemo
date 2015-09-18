@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.iboss.repository.JobsRepository;
+import com.iboss.util.AppUtils;
 
 @Controller
 public class SearchJobsController {
@@ -25,13 +25,10 @@ public class SearchJobsController {
 	@Autowired
 	MessageSource messageSource;
 
-	@Autowired
-	JobsRepository jobsRepository;
-
-	@RequestMapping(value = "/search-jobs/{category}/{job_type}", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/search-jobs/**", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView searchJobs(HttpServletRequest request, HttpServletResponse response, @PathVariable Map<String, String> pathVariables) throws IOException {
 		LOGGER.info("Inside / path.....");
-		LOGGER.info("Path Variables: " + pathVariables);
+		String[] filters = AppUtils.splitURI(request);
 		return new ModelAndView("forward:/home.htm");
 	}	
 }

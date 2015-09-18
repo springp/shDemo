@@ -57,6 +57,10 @@ public class User {
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
 	@Column(name = "LAST_NAME", length = 60)
 	private String lastName;
+	
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Column(name = "COMPANY_NAME", length = 60)
+	private String companyName;
 
 	@Field(index = Index.YES, analyze = Analyze.NO, store = Store.YES)
 	@DateBridge(resolution = Resolution.DAY)
@@ -72,6 +76,9 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<UserQualification> userQualifications;
+	
+	@OneToMany(mappedBy = "user")
+	private List<UserExperience> userExperiences;
 	
 	@OneToMany(mappedBy = "user")
 	private List<UserPortfolio> userPortfolios;	
@@ -176,4 +183,27 @@ public class User {
 		this.countryId = countryId;
 	}
 
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public List<UserQualification> getUserQualifications() {
+		return userQualifications;
+	}
+
+	public void setUserQualifications(List<UserQualification> userQualifications) {
+		this.userQualifications = userQualifications;
+	}
+
+	public List<UserPortfolio> getUserPortfolios() {
+		return userPortfolios;
+	}
+
+	public void setUserPortfolios(List<UserPortfolio> userPortfolios) {
+		this.userPortfolios = userPortfolios;
+	}
 }

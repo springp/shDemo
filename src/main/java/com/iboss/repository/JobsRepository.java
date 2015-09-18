@@ -8,6 +8,7 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.iboss.entity.Job;
 import com.iboss.entity.User;
 
 @Repository
@@ -19,13 +20,14 @@ public class JobsRepository extends SimpleHibernateRepository<User, Long> {
 
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	public List<User> searchJobs(String keyword) {
-		List<User> result = null;
+	public List<Job> searchJobs(String keyword) {
+		List<Job> result = null;
 		try {
-			
+
 			FullTextSession searchSession = Search.getFullTextSession(getSessionFactory().getCurrentSession());
-			final QueryBuilder b = searchSession.getSearchFactory().buildQueryBuilder().forEntity(User.class).get();
-			org.apache.lucene.search.Query luceneQuery = b.keyword().onField("userUUID").matching(keyword).createQuery();
+			final QueryBuilder b = searchSession.getSearchFactory().buildQueryBuilder().forEntity(Job.class).get();
+			org.apache.lucene.search.Query luceneQuery = b.keyword().onField("userUUID").matching(keyword)
+					.createQuery();
 
 			org.hibernate.Query fullTextQuery = searchSession.createFullTextQuery(luceneQuery);
 

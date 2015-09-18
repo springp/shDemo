@@ -13,7 +13,6 @@
 		<name>iBoss</name>
 		<url>http://www.iBoss.com</url>
 	</organization>
-	<!-- <packaging>war</packaging> -->
 	<properties>
 		<jdk.version>1.7</jdk.version>
 		<spring.version>4.2.0.RELEASE</spring.version>
