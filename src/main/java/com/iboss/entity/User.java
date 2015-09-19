@@ -59,6 +59,10 @@ public class User {
 	private String lastName;
 	
 	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Column(name = "PROFESSIONAL_TITLE", length = 60)
+	private String professionalTitle;
+	
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
 	@Column(name = "COMPANY_NAME", length = 60)
 	private String companyName;
 
@@ -67,6 +71,10 @@ public class User {
 	@Column(name = "BIRTH_DATE")
 	private Date birthDate;
 
+	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
+	@Column(name = "COUNTRY_ID")
+	private Long countryId;
+	
 	@Column(name = "ROLE")
 	private AccountType role;
 
@@ -83,10 +91,15 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<UserPortfolio> userPortfolios;	
 	
-	@Field(index = Index.YES, analyze = Analyze.YES, store = Store.NO)
-	@Column(name = "COUNTRY_ID")
-	private Long countryId;
-
+	@OneToMany(mappedBy = "user")
+	private List<UserSkillSet> skillSet;	
+	
+	@OneToMany(mappedBy = "client")
+	private List<Job> jobs;
+	
+//	@OneToMany(mappedBy = "user")
+//	private List<JobContract> contracts;	
+	
 	public Long getId() {
 		return id;
 	}
@@ -205,5 +218,37 @@ public class User {
 
 	public void setUserPortfolios(List<UserPortfolio> userPortfolios) {
 		this.userPortfolios = userPortfolios;
+	}
+
+	public List<UserExperience> getUserExperiences() {
+		return userExperiences;
+	}
+
+	public void setUserExperiences(List<UserExperience> userExperiences) {
+		this.userExperiences = userExperiences;
+	}
+
+	public List<UserSkillSet> getSkillSet() {
+		return skillSet;
+	}
+
+	public void setSkillSet(List<UserSkillSet> skillSet) {
+		this.skillSet = skillSet;
+	}
+
+	public String getProfessionalTitle() {
+		return professionalTitle;
+	}
+
+	public void setProfessionalTitle(String professionalTitle) {
+		this.professionalTitle = professionalTitle;
+	}
+
+	public List<Job> getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(List<Job> jobs) {
+		this.jobs = jobs;
 	}
 }

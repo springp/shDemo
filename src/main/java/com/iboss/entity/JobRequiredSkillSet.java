@@ -10,16 +10,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER_EXPERIENCE")
-public class UserExperience {
+@Table(name = "JOB_REQUIRED_SKILLSET")
+public class JobRequiredSkillSet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "EXPERIENCE_ID", unique = true, nullable = false)
+	@Column(name = "JOB_REQUIRED_SKILLSET_ID", unique = true, nullable = false)
 	private Long id;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "SKILLSET_ID", nullable = false)
+	private SkillSet skillSet;
 	
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "USER_ID", nullable = false)
-	private User user;
-
+	@JoinColumn(name = "JOB_ID", nullable = false)
+	private Job job;
+	
 }
