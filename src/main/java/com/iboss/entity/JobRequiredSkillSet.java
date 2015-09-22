@@ -21,9 +21,33 @@ public class JobRequiredSkillSet {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "SKILLSET_ID", nullable = false)
 	private SkillSet skillSet;
-	
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "JOB_ID", nullable = false)
 	private Job job;
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public SkillSet getSkillSet() {
+		return skillSet;
+	}
+
+	public void setSkillSet(SkillSet skillSet) {
+		this.skillSet = skillSet;
+	}
+
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
+	}
+
 }

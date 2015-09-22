@@ -9,13 +9,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iboss.entity.Job;
-import com.iboss.entity.User;
 
 @Repository
-public class JobsRepository extends SimpleHibernateRepository<User, Long> {
+public class JobsRepository extends SimpleHibernateRepository<Job, Long> {
 
 	protected JobsRepository() {
-		super(User.class);
+		super(Job.class);
 	}
 
 	@SuppressWarnings("unchecked")

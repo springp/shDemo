@@ -23,7 +23,6 @@ import com.iboss.repository.JobsRepository;
 import com.iboss.service.JobsService;
 
 @ContextConfiguration(classes = { IBossApplication.class })
-//@RunWith(SpringJUnit4ClassRunner.class)
 @RunWith(MockitoJUnitRunner.class)
 public class JobsServiceTest {
 
@@ -53,9 +52,6 @@ public class JobsServiceTest {
 	@Test
 	public void testSearchJobs() throws SQLException {
 		LOGGER.info("Inside TEST search jobs == " + jobsService);
-		
-		//List<Job> jobs = new ArrayList<Job>();
-		//Mockito.when(jobsService.searchJobs(Mockito.anyString())).thenReturn(jobs);
 		
 		List<Job> jobs = jobsService.searchJobs("JAVA");
 		
