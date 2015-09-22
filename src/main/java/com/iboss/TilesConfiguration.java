@@ -47,6 +47,7 @@ public final class TilesConfiguration implements DefinitionsFactory {
 	public static void addDefinitions() {
 		addDefaultLayoutDef("login", "Login", "/WEB-INF/views/login.jsp");
 		addDefaultLayoutDef("home", "Dashboard", "/WEB-INF/views/home.jsp");
-		addDefaultLayoutDef("userslist", "UserList", "/WEB-INF/views/userslist.jsp");
+		addDefaultLayoutDef("search", "Search Jobs", "/WEB-INF/views/search.jsp");
+		addDefaultLayoutDef("employee", "Search Jobs", "/WEB-INF/views/signup/employee.jsp");
 	}
 }

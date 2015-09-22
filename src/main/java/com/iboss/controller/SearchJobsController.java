@@ -24,9 +24,16 @@ public class SearchJobsController {
 
 	@Autowired
 	MessageSource messageSource;
+	
+	@RequestMapping(value = "/search-jobs", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView searchJobs(HttpServletRequest request, HttpServletResponse response, @PathVariable Map<String, String> pathVariables) throws IOException {
+		LOGGER.info("Inside / path.....");
+		return new ModelAndView("search");
+		//return new ModelAndView("signup/employee");
+	}	
 
 	@RequestMapping(value = "/search-jobs/**", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView searchJobs(HttpServletRequest request, HttpServletResponse response, @PathVariable Map<String, String> pathVariables) throws IOException {
+	public ModelAndView filterJobs(HttpServletRequest request, HttpServletResponse response, @PathVariable Map<String, String> pathVariables) throws IOException {
 		LOGGER.info("Inside / path.....");
 		String[] filters = AppUtils.splitURI(request);
 		return new ModelAndView("forward:/home.htm");

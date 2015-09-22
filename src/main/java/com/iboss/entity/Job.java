@@ -12,8 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.iboss.enums.JobType;
 
@@ -54,6 +54,10 @@ public class Job {
 	
 	@OneToMany(mappedBy = "job")
 	private List<JobContract> contracts;	
+	
+	//@OneToMany(mappedBy = "job")
+	@Transient
+	private List<Praposals> praposals;	
 
 	public Long getId() {
 		return id;
@@ -151,4 +155,11 @@ public class Job {
 		this.rate = rate;
 	}
 
+	public List<Praposals> getPraposals() {
+		return praposals;
+	}
+
+	public void setPraposals(List<Praposals> praposals) {
+		this.praposals = praposals;
+	}	
 }
