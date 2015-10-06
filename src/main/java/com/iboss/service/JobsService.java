@@ -50,4 +50,22 @@ public class JobsService {
 		LOGGER.info("SERVICE - JOB has been posted");
 		return newJob;
 	}
+
+	public List<Job> listJobs(Long userId, String status) {
+		LOGGER.info("SERVICE - Inside List jobs");
+		List<Job> results = null;
+		try {
+			
+			LOGGER.debug("SERVICE - List jobs for UserID" + userId + " and with status " + status);
+			results = jobsRepository.listJobs(userId, status);
+			LOGGER.debug("SERVICE - Found # of jobs " + results);
+
+		} catch (Exception e) {
+			LOGGER.error("SERVICE - Backend server error -Error while listing jobs JOBs", e);
+			throw new JobException("Backend server error while listing jobs JOBs", e);
+		}
+		LOGGER.info("SERVICE - List jobs completed");
+		return results;
+	}
 }
+

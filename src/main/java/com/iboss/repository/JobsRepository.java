@@ -2,13 +2,17 @@ package com.iboss.repository;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.iboss.entity.Job;
+import com.iboss.enums.JobStatus;
 
 @Repository
 public class JobsRepository extends SimpleHibernateRepository<Job, Long> {
@@ -35,5 +39,24 @@ public class JobsRepository extends SimpleHibernateRepository<Job, Long> {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<Job> listJobs(Long userId, String status) {
+		List<Job> results = null;
+		try {
+			
+			Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Job.class);
+			criteria.add(Restrictions.eq("client.id", userId));
+			if (!StringUtils.isEmpty(status) && !JobStatus.ALL.name().equalsIgnoreCase(status)){
+				criteria.add(Restrictions.eq("jobStatus", status));
+			}
+			results = criteria.list();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return results;
 	}
 }

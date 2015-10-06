@@ -16,7 +16,7 @@
 							<div class="panel-body">
 								<p>
 									<input type="checkbox" name="chk_java" id="chk_java" onchange="window.location='${requestScope['javax.servlet.forward.request_uri']}search-jobs/'"/>
-									<label>Java</label>
+									<label>Java12</label>
 								</p>
 								<p>
 									<input type="checkbox" name="chk_net" id="chk_net" onchange="window.location='./search-jobs/3'"/>

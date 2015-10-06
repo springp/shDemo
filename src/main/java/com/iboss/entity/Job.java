@@ -29,6 +29,9 @@ public class Job {
 	@Column(name = "JOB_UUID")
 	private String jobUUID;
 
+	@Column(name = "JOB_NAME")
+	private String jobName;
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "USER_ID", nullable = false)
 	private User client;
@@ -55,6 +58,9 @@ public class Job {
 	@Column(name = "JOB_DURATION")
 	private String jobDuration;
 
+	@Column(name = "JOB_STATUS")
+	private String jobStatus;
+
 	@OneToMany(mappedBy = "job")
 	private List<JobRequiredSkillSet> skillSet;
 
@@ -65,6 +71,8 @@ public class Job {
 	@Transient
 	private List<Praposals> praposals;
 
+	// TODO:
+	// Add screening questions
 	public Long getId() {
 		return id;
 	}
@@ -184,4 +192,21 @@ public class Job {
 	public void setPraposals(List<Praposals> praposals) {
 		this.praposals = praposals;
 	}
+
+	public String getJobName() {
+		return jobName;
+	}
+
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
+
+	public String getJobStatus() {
+		return jobStatus;
+	}
+
+	public void setJobStatus(String jobStatus) {
+		this.jobStatus = jobStatus;
+	}
+
 }

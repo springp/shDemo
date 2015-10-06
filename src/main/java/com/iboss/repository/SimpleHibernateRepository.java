@@ -28,7 +28,7 @@ public abstract class SimpleHibernateRepository<T, PK extends Serializable> {
 	}
 
 	protected Session getSession() {
-		return sessionFactory.getCurrentSession();
+		return getSessionFactory().getCurrentSession();
 	}
 
 	protected SessionFactory getSessionFactory() {
