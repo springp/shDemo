@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,8 +22,8 @@ public class Category {
 
 	@Column(name = "CATEGORY_NAME", nullable = false, length = 100)
 	private String name;
-	
-	@OneToMany(mappedBy = "category")
+
+	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER )
 	private List<TechnologyStack> technologyStack;
 
 	public Long getId() {
@@ -39,6 +40,14 @@ public class Category {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<TechnologyStack> getTechnologyStack() {
+		return technologyStack;
+	}
+
+	public void setTechnologyStack(List<TechnologyStack> technologyStack) {
+		this.technologyStack = technologyStack;
 	}
 
 }

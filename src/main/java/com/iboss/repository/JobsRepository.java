@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import com.iboss.entity.Job;
 import com.iboss.enums.JobStatus;
+import com.iboss.exceptions.JobException;
 
 @Repository
 public class JobsRepository extends SimpleHibernateRepository<Job, Long> {
@@ -55,7 +56,7 @@ public class JobsRepository extends SimpleHibernateRepository<Job, Long> {
 			results = criteria.list();
 		
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new JobException("Backend server error while listing jobs JOBs", e);
 		}
 		return results;
 	}

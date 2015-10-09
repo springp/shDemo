@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.iboss.bo.JobBO;
 import com.iboss.entity.Category;
 import com.iboss.entity.Job;
-import com.iboss.enums.JobStatus;
 import com.iboss.service.CategoryService;
 import com.iboss.service.JobsService;
+import com.iboss.util.AppConstants;
 import com.iboss.util.AppUtils;
 
 @Controller
@@ -52,20 +51,22 @@ public class JobsController {
 	@RequestMapping(value = "/search-jobs/**", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView filterJobs(HttpServletRequest request, HttpServletResponse response, @PathVariable Map<String, String> pathVariables) throws IOException {
 		LOGGER.info("Inside / path.....");
-		String[] filters = AppUtils.splitURI(request);
+		//String[] filters = AppUtils.splitURI(request);
 		return new ModelAndView("forward:/home.htm");
 	}	
 	
 	@RequestMapping(value = "/list-client-jobs.htm", method = { RequestMethod.GET })
 	public ModelAndView listClientJobs(HttpServletRequest request, HttpServletResponse response, @RequestParam (name = "jtype", required = false ) String jobType) throws IOException {
-		LOGGER.info("Inside / view user jobs.....");
-		
-		List<Job> jobs = jobsService.listJobs(1l, AppUtils.getJobTypeString(jobType));
-		
+		LOGGER.info("Inside / view user jobs.....");		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("jobs", jobs);
-		return new ModelAndView("list-client-jobs", map);
-		
+		try {
+			List<Job> jobs = jobsService.listJobs(1l, AppUtils.getJobTypeString(jobType));
+			map.put("jobs", jobs);			
+		} catch (Exception e) {
+			map.put(AppConstants.UI_ERROR_MESSAGE, "Backend server error -Error while listing jobs, Please try again!");
+			LOGGER.error("SERVICE - Backend server error -Error while listing jobs", e);
+		}
+		return new ModelAndView("list-client-jobs", map);		
 	}	
 	
 	

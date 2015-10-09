@@ -100,5 +100,5 @@ public class IBossApplication extends WebMvcConfigurerAdapter {
 		tilesConfigurer.setDefinitionsFactoryClass(TilesConfiguration.class);
 
 		return tilesConfigurer;
-	}
+	}	
 }

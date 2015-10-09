@@ -12,18 +12,13 @@
 	<link href="<%=request.getContextPath()%>/resources/css/bootstrap-responsive.css" rel="stylesheet"></link>
 	<link href="<%=request.getContextPath()%>/resources/css/app.css" rel="stylesheet"></link>
 	
-	<%-- <link href="<%=request.getContextPath()%>/resources/css/font-awesome.css" rel="stylesheet" type="text/css">
-	<link href="<%=request.getContextPath()%>/resources/css/login_style.css" rel="stylesheet">
-	<link href="<%=request.getContextPath()%>/resources/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/img/favicon.ico" />
-	<link rel="apple-touch-icon" href="<%=request.getContextPath()%>/resources/img/favicon.png" /> --%>
-	<script src="<%= request.getContextPath()%>/resources/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="<%= request.getContextPath()%>/resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="<%= request.getContextPath()%>/resources/js/ekko-lightbox.js" type="text/javascript" charset="utf-8"></script>
-	<script src="<%= request.getContextPath()%>/resources/js/angular.min.js" type="text/javascript" charset="utf-8"></script>
-</head>
+
+	<script src="<%= request.getContextPath()%>/resources/js/frameworks/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="<%= request.getContextPath()%>/resources/js/frameworks/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="<%= request.getContextPath()%>/resources/js/frameworks/ekko-lightbox.js" type="text/javascript" charset="utf-8"></script>
+	<script src="<%= request.getContextPath()%>/resources/js/frameworks/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="<%= request.getContextPath()%>/resources/js/app/home-controller.js" type="text/javascript" charset="utf-8"></script>
+<!-- </head> -->
 <body>
 	<div id="wrap">
 		<tiles:insertAttribute name="header" />

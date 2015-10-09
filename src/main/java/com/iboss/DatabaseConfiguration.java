@@ -16,6 +16,8 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import liquibase.integration.spring.SpringLiquibase;
+
 @Configuration
 @EnableTransactionManagement
 public class DatabaseConfiguration {
@@ -57,20 +59,32 @@ public class DatabaseConfiguration {
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		sessionFactory.setDataSource(dataSource());
+		sessionFactory.setDataSource(getDataSource());
 		sessionFactory.setPackagesToScan(new String[] { "com.iboss.entity" });
 		sessionFactory.setHibernateProperties(hibernateProperties());
 		return sessionFactory;
 	}
 
 	@Bean
-	public DataSource dataSource() {
+	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(driverClassName);
 		dataSource.setUrl(url);
 		dataSource.setUsername(username);
 		dataSource.setPassword(password);
 		return dataSource;
+		
+//		BasicDataSource dataSource = new BasicDataSource();
+//		dataSource.setDriverClassName(driverClassName);
+//		dataSource.setUrl(url);
+//		dataSource.setUsername(username);
+//		dataSource.setPassword(password);
+//		dataSource.setMaxActive(8);
+//		dataSource.setMaxIdle(4);
+//		dataSource.setMaxWait(900000);
+//		dataSource.setValidationQuery("SELECT 1");
+//		dataSource.setTestOnBorrow(true);
+//		return dataSource;
 	}
 
 	private Properties hibernateProperties() {
@@ -99,4 +113,12 @@ public class DatabaseConfiguration {
 		txManager.setSessionFactory(s);
 		return txManager;
 	}
+	
+	@Bean
+    public SpringLiquibase springLiquibase() {
+        SpringLiquibase springLiquibase = new SpringLiquibase();
+        springLiquibase.setDataSource(getDataSource());
+        springLiquibase.setChangeLog("classpath:schema.xml");
+        return springLiquibase;
+    }
 }

@@ -148,6 +148,12 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.connector.version}</version>
 		</dependency>
+		
+		<dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
 
 		<!-- TILES dependencies -->
 		<dependency>
@@ -267,6 +273,18 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        
+<!--         <dependency> -->
+<!-- 			<groupId>org.liquibase</groupId> -->
+<!-- 			<artifactId>liquibase-maven-plugin</artifactId> -->
+<!-- 			<version>3.4.1</version> -->
+<!-- 		</dependency>  -->
 
 <!-- 		<dependency> -->
 <!-- 			<groupId>com.google.code.gson</groupId> -->
@@ -305,6 +323,21 @@
 <!-- 			          </webResources> -->
 					</configuration>
 				</plugin>
+<!-- 				<plugin> -->
+<!-- 			        <groupId>org.liquibase</groupId> -->
+<!-- 			        <artifactId>liquibase-maven-plugin</artifactId> -->
+<!-- 			        <version>3.4.1</version> -->
+<!-- 			        <configuration>                   -->
+<!-- 			            <propertyFile>src/main/resources/liquibase.properties</propertyFile> -->
+<!-- 			        </configuration>                 -->
+<!-- 						<executions> -->
+<!-- 						    <execution> -->
+<!-- 						        <goals> -->
+<!-- 							    <goal>update</goal> -->
+<!-- 							</goals> -->
+<!-- 						    </execution> -->
+<!-- 						</executions> -->
+<!-- 			    </plugin>  -->
 			</plugins>
 		</pluginManagement>
 	</build>

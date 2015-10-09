@@ -2,6 +2,8 @@ package com.iboss.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,14 @@ public class CategoryService {
 	@Autowired
 	CategoryRepository categoryRepository;
 
+	
+//	@Transactional
 	public List<Category> findAll() {
 		List<Category> categories = categoryRepository.findAll();
 		return categories;
 	}
 
+	public Category findById(Long id) {
+		return categoryRepository.findById(id);
+	}
 }
