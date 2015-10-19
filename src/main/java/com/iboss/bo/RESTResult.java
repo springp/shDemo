@@ -2,8 +2,8 @@ package com.iboss.bo;
 
 public class RESTResult {
 
-	private int status;
-	private String message;
+	private int status = -1;
+	private String message = "error";
 	private Object result;
 
 	public int getStatus() {

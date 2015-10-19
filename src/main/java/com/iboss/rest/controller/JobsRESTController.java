@@ -1,6 +1,8 @@
 package com.iboss.rest.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.iboss.bo.RESTResult;
 import com.iboss.entity.Category;
+import com.iboss.entity.SkillSet;
 import com.iboss.entity.TechnologyStack;
 import com.iboss.entity.User;
 import com.iboss.service.CategoryService;
@@ -43,37 +48,46 @@ public class JobsRESTController {
 	}
 	
 	@RequestMapping(value = { "/get_subcategories" }, method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE })
-	@ResponseBody
-	public ResponseEntity<RESTResult> getSubCategory(ModelMap model, @RequestParam("cId") String categoryId) throws IOException {
-		
+	public @ResponseBody ResponseEntity<RESTResult> getSubCategory(ModelMap model, @RequestParam("cId") String categoryId) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
 		RESTResult result = new RESTResult();		
-//		List<Category> cat = categoryService.findById(Long.parseLong(categoryId));		
-//	
-//		StringBuffer buffer = new StringBuffer();
-//		buffer.append(" [");
-//		for (Category category : cat) {
-//			for(TechnologyStack ts : category.getTechnologyStack()){
-//				buffer.append("{'id':" + ts.getId() + ", 'subcategory':" + ts.getName() + ", 'categoryId':" + category.getId() + "},");
-//			}
-//		}
-//		
-//		buffer.replace(buffer.length() - 1, buffer.length(), ",");
-//		buffer.append(" ]");
-		
 		Category category = categoryService.findById(Long.parseLong(categoryId));		
-	
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(" [");
+		List<ObjectNode> subCategories = new ArrayList<ObjectNode>();
 		if (category.getTechnologyStack() != null){
 			for(TechnologyStack ts : category.getTechnologyStack()){
-					buffer.append("{'id':" + ts.getId() + ", 'subcategory':" + ts.getName() + ", 'categoryId':" + category.getId() + "},");
+					ObjectNode node = mapper.createObjectNode();
+					node.put("id", ts.getId());
+					node.put("subcategory", ts.getName());
+					node.put("categoryId", category.getId());
+					subCategories.add(node);
+					
 			}
 		}
 		
-		buffer.replace(buffer.length() - 1, buffer.length(), ",");
-		buffer.append(" ]");
+		result.setResult(subCategories);
+		result.setMessage("success");
+		result.setStatus(0);
+				
+		return new ResponseEntity<RESTResult>(result, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = { "/search_cat_skills" }, method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<RESTResult> searchSkill(ModelMap model, @RequestParam("scId") String subCategoryId) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		RESTResult result = new RESTResult();		
+		List<SkillSet> skillSets = categoryService.searchSkills(Long.parseLong(subCategoryId));		
+		List<ObjectNode> subCategories = new ArrayList<ObjectNode>();
+		if (skillSets != null){
+			for(SkillSet ss : skillSets){
+					ObjectNode node = mapper.createObjectNode();
+					node.put("id", ss.getId());
+					node.put("skillName", ss.getName());
+					subCategories.add(node);
+					
+			}
+		}
 		
-		result.setResult(buffer);
+		result.setResult(subCategories);
 		result.setMessage("success");
 		result.setStatus(0);
 				

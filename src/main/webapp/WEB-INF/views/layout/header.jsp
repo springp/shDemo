@@ -14,9 +14,10 @@
 		</div>
 		<div class="collapse navbar-collapse" id="navbar" style="float: right;">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
+				<li class="active"><a href="/iboss">Home</a></li>
 				<li><a href="#about">About</a></li>
 				<li><a href="#contact">Contact</a></li>
+				<li><a href="list-client-jobs.htm">Post</a></li>
 				<li class="dropdown"><a aria-expanded="false"
 					aria-haspopup="true" role="button" data-toggle="dropdown"
 					class="dropdown-toggle" href="#">Dropdown <span class="caret"></span></a>
@@ -31,6 +32,20 @@
 					</ul></li>
 			</ul>
 		</div>
+		<div class="clearfix"></div>
+	    <div class="input-group span4" style="margin: 10px; float: right;">
+	    	<div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Jobs <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action 1</a></li>
+                    <li><a href="#">Action 2</a></li>
+                </ul>
+            </div>
+            <input type="text" class="form-control" placeholder="Search&hellip;">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-primary">Go</button>
+            </span>
+        </div>
 		<!--/.nav-collapse -->
 	</div>
 </nav>
