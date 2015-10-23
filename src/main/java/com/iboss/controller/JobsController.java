@@ -91,7 +91,7 @@ public class JobsController {
 	}
 	
 	
-	@RequestMapping(value = "/post-job.htm", method = { RequestMethod.GET })
+	@RequestMapping(value = "/post-job.htm", method = { RequestMethod.POST })
 	public ModelAndView postJob(HttpServletRequest request, HttpServletResponse response,  @ModelAttribute("jobBO") JobBO job) throws IOException {
 		LOGGER.info("Controller : Inside post job");
 		ModelAndView modelAndView = new ModelAndView("list_jobs");

@@ -1,28 +1,29 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <div class="list-client-jobs" ng-app="iBossJobPostApp">
 	<h2></h2>
 	<div class="col-xs-6" ng-controller="PostJobCtrlJS">	
-		<form name="PostJobForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+		<form:form name="frm_post_job" modelAttribute="jobBO" action="post-job.htm" novalidate="novalidate" method="POST">
 			<div class="form-horizontal" style="margin-top: 20px;">
 				<div class="form-group" >
 					<label for="txt_job_name" style="width: 18%;">Name</label> 
-					<input type="text" class="form-control" id="txt_job_name" placeholder="Name" required ng-required="true"/>
+					<form:input type="text" class="form-control" id="txt_job_name" name="txt_job_name" placeholder="Name" path="jobName"/>
 				</div>
 				<div class="form-group"  >				
 					<div class="form-inline" >
 						<div class="col-xs-6" style="padding-left: 0 !important;">
 							<div class="form-inline">
 								<label for="txt_job_cat" style="width: 100%;">Category</label>
-								<select class="form-control" id="txt_job_cat" style="width: 100%;" 
+								<form:select class="form-control" id="txt_job_cat" style="width: 100%;" 
 									ng-model="postjob.CatId"
-									ng-change="getSubCategory()">
-								 	<option value="">Select Category.....</option>
+									ng-change="getSubCategory()" path="categoryId">
+								 	<form:option value="">Select Category.....</form:option>
 									<c:forEach items="${jobCategories}" var="cat">
 										<option value="${cat.id}">${cat.name}</option>
 									</c:forEach>
-								</select>
+								</form:select>
 							</div>
 						</div>
 						<div class="col-xs-6">
@@ -44,7 +45,7 @@
 				</div>	
 				<div class="form-group">
 					<label for="txt_job_description" style="width: 100%;">Description</label>
-					<textarea class="form-control" rows="5" id="txt_job_description" required ng-required="true"></textarea>
+					<form:textarea class="form-control" rows="5" id="txt_job_description" ng-minlength="3" ng-maxlength="8" path="jobDescription"></form:textarea>
 				</div>			
 				<div class="form-group">
 					<label for="txt_job_type" style="width: 18%;">Type</label> 
@@ -56,20 +57,20 @@
 					<label for="txt_job_budget" style="width: 100%;">Budget</label> 				
 					<div class="input-group">
 		                <span class="input-group-addon">$</span>
-		                <input type="text" class="form-control" id="txt_job_budget" placeholder="Name" />
+		                <form:input type="text" class="form-control" id="txt_job_budget" placeholder="Name" path="bugget"/>
 		            </div>
 				</div>
 				<div class="form-group">
 					<label for="txt_job_duration" style="width: 100%;">Duration</label> 
-					<input type="text" class="form-control" id="txt_job_duration" placeholder="Name" />
+					<form:input type="text" class="form-control" id="txt_job_duration" placeholder="Name" path="jobDuration"/>
 				</div>			
 				<div class="form-group">
 			        <div class="">
-			            <button type="submit" class="btn btn-primary">Login</button>
+			            <button type="submit" class="btn btn-primary" >Login</button>
 			        </div>		
 			    </div>
 			</div>
-		</form>
+		</form:form>
 	</div>
 </div>
 <script type="text/javascript">
@@ -106,4 +107,5 @@
 			  }
 			});
 	});
+	
 </script>

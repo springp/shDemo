@@ -15,6 +15,8 @@ public class JobBO {
 	private Long id;
 
 	private String jobUUID;
+	
+	private String jobName;
 
 	private User client;
 
@@ -52,6 +54,14 @@ public class JobBO {
 
 	public void setJobUUID(String jobUUID) {
 		this.jobUUID = jobUUID;
+	}
+	
+	public String getJobName() {
+		return jobName;
+	}
+
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
 	}
 
 	public User getClient() {

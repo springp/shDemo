@@ -20,7 +20,7 @@ iBossJobPostApp.controller('PostJobCtrlJS', ['$scope', 'JobCategoryService', fun
   	 }, function(error) {
   		$scope.subcatetries = [];
      });
-  }
+  };
   
   $scope.searchSkill = function(){
 	  	 JobCategoryService.searchSkill($scope.postjob.SubCatId).then(function(data) {
@@ -33,7 +33,16 @@ iBossJobPostApp.controller('PostJobCtrlJS', ['$scope', 'JobCategoryService', fun
 	  	 }, function(error) {
 	  		$scope.skills = [];
 	     });
-  }
+  };
+  
+//  $scope.submitForm = function(isValid) {
+//
+//    // check to make sure the form is completely valid
+//    if (isValid) {
+//      alert('our form is amazing');
+//    }
+//
+//  };
 }]);
 
 iBossJobPostApp.factory("JobCategoryService", ['$filter', '$http', function($filter, $http){
