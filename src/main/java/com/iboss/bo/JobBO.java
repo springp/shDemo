@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 import com.iboss.entity.JobContract;
 import com.iboss.entity.JobRequiredSkillSet;
 import com.iboss.entity.Praposals;
@@ -27,7 +30,10 @@ public class JobBO {
 	private Date createdDate;
 
 	private JobType jobType;
+	
+	private String jobStatus;
 
+	@NumberFormat(style = Style.NUMBER)
 	private BigDecimal bugget;
 
 	private BigDecimal rate;
@@ -102,6 +108,14 @@ public class JobBO {
 
 	public void setJobType(JobType jobType) {
 		this.jobType = jobType;
+	}
+	
+	public String getJobStatus() {
+		return jobStatus;
+	}
+
+	public void setJobStatus(String jobStatus) {
+		this.jobStatus = jobStatus;
 	}
 
 	public BigDecimal getBugget() {

@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name = "CATEGORY")
 public class Category {
@@ -24,6 +27,7 @@ public class Category {
 	private String name;
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER )
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<TechnologyStack> technologyStack;
 
 	public Long getId() {

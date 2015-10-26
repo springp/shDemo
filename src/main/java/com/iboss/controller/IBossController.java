@@ -33,6 +33,9 @@ public class IBossController {
 	@RequestMapping(value = "/" , method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView welcomePage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		LOGGER.info("Inside / path.....");
+		
+		//BeanUtilsBean.getInstance().getConvertUtils().register(false, false, 0);
+		
 		return new ModelAndView("forward:/home.htm");
 	}
 	

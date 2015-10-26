@@ -1,7 +1,9 @@
 package com.iboss.service;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.iboss.bo.JobBO;
 import com.iboss.entity.Job;
+import com.iboss.enums.JobStatus;
 import com.iboss.exceptions.JobException;
 import com.iboss.repository.JobsRepository;
 
@@ -31,7 +34,13 @@ public class JobsService {
 		Job newJob = new Job();
 		try {
 
-			BeanUtils.copyProperties(newJob, job);
+			//set job default value
+			job.setJobUUID(UUID.randomUUID().toString());
+			job.setJobStatus(JobStatus.OPEN.name());
+			job.setCreatedDate(new Date());	
+			
+			BeanUtils.copyProperties(newJob, job);			
+						
 			Long newJobId = jobsRepository.save(newJob);
 			job.setId(newJobId);
 

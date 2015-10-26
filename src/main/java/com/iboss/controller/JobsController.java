@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.iboss.bo.JobBO;
 import com.iboss.entity.Category;
 import com.iboss.entity.Job;
+import com.iboss.entity.User;
 import com.iboss.service.CategoryService;
 import com.iboss.service.JobsService;
 import com.iboss.util.AppConstants;
@@ -96,6 +97,10 @@ public class JobsController {
 		LOGGER.info("Controller : Inside post job");
 		ModelAndView modelAndView = new ModelAndView("list_jobs");
 		try {
+			
+			//TODO: set logged in client id from session
+			job.setClient(new User(1L));
+			
 			Job newJob = jobsService.postJob(job);
 			LOGGER.debug("Controller : New job has been posted in category - " + newJob.getCategoryId());
 		} catch (Exception e) {

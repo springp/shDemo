@@ -24,16 +24,22 @@ public class JobContract {
 	@JoinColumn(name = "JOB_ID", nullable = false)
 	private Job job;
 
-//	@OneToMany(mappedBy = "user")
-//	@JoinColumn(name = "USER_ID", nullable = false)
-//	private User user;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "USER_ID", nullable = false)
+	private User user;
 
 	@Column(name = "CONTRACT_START_DATE", nullable = false)
 	private Date startDate;
 
 	@Column(name = "CONTRACT_END_DATE")
 	private Date endDate;
+	
+	@Column(name = "USER_FEEDBACK")
+	private String userFeedback;
 
+	@Column(name = "CLIENT_FEEDBACK")
+	private String clientFeedback;
+	
 	public Long getId() {
 		return id;
 	}
@@ -50,13 +56,13 @@ public class JobContract {
 		this.job = job;
 	}
 
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Date getStartDate() {
 		return startDate;
@@ -73,7 +79,21 @@ public class JobContract {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	
-	
+
+	public String getUserFeedback() {
+		return userFeedback;
+	}
+
+	public void setUserFeedback(String userFeedback) {
+		this.userFeedback = userFeedback;
+	}
+
+	public String getClientFeedback() {
+		return clientFeedback;
+	}
+
+	public void setClientFeedback(String clientFeedback) {
+		this.clientFeedback = clientFeedback;
+	}
 
 }

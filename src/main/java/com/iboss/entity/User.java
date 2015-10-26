@@ -26,6 +26,13 @@ import com.iboss.enums.AccountType;
 @Indexed
 public class User {
 
+	public User() {
+	}
+	
+	public User(Long userId) {
+		this.id = userId;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
@@ -97,8 +104,8 @@ public class User {
 	@OneToMany(mappedBy = "client")
 	private List<Job> jobs;
 	
-//	@OneToMany(mappedBy = "user")
-//	private List<JobContract> contracts;	
+	@OneToMany(mappedBy = "user")
+	private List<JobContract> contracts;	
 	
 	public Long getId() {
 		return id;
