@@ -5,16 +5,19 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+//import org.apache.tomcat.jdbc.pool.DataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 import liquibase.integration.spring.SpringLiquibase;
 
@@ -65,26 +68,20 @@ public class DatabaseConfiguration {
 		return sessionFactory;
 	}
 
-	@Bean
+	@Bean(destroyMethod="close")
 	public DataSource getDataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(driverClassName);
-		dataSource.setUrl(url);
-		dataSource.setUsername(username);
-		dataSource.setPassword(password);
-		return dataSource;
+
+		Properties properties = new Properties();		
+		properties.put("driverClassName", driverClassName);
+		properties.put("jdbcUrl", url);
+		properties.put("username", username);
+		properties.put("password", password);
+		properties.put("connectionTestQuery", "SELECT 1");
+		HikariConfig hikariConfig = new HikariConfig(properties);	
+		HikariDataSource hikariDataSource = new HikariDataSource(hikariConfig);
+		return hikariDataSource;
 		
-//		BasicDataSource dataSource = new BasicDataSource();
-//		dataSource.setDriverClassName(driverClassName);
-//		dataSource.setUrl(url);
-//		dataSource.setUsername(username);
-//		dataSource.setPassword(password);
-//		dataSource.setMaxActive(8);
-//		dataSource.setMaxIdle(4);
-//		dataSource.setMaxWait(900000);
-//		dataSource.setValidationQuery("SELECT 1");
-//		dataSource.setTestOnBorrow(true);
-//		return dataSource;
+
 	}
 
 	private Properties hibernateProperties() {
@@ -95,11 +92,18 @@ public class DatabaseConfiguration {
 		LOGGER.info("SECOND CACHE -->" + cache);
 		LOGGER.info("=====================================================================");
 		Properties properties = new Properties();
+		
 		properties.put("hibernate.dialect", dialect);
 		properties.put("hibernate.hbm2ddl.auto", auto);
 		properties.put("hibernate.show_sql", showSql);
-		properties.put("hibernate.cache.use_second_level_cache", cache);
 		properties.put("hibernate.format_sql", fmtSql);
+		properties.put("hibernate.generate_statistics", true);
+		
+		properties.put("hibernate.cache.use_second_level_cache", cache);
+		properties.put("hibernate.cache.use_query_cache", true);
+		properties.put("hibernate.cache.provider_class","net.sf.ehcache.hibernate.EhCacheProvider");
+		properties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
+		//properties.put("net.sf.ehcache.configurationResourceName", "cache-config.xml");
 		
 		properties.put("hibernate.search.default.directory_provider", "org.hibernate.search.store.impl.FSDirectoryProvider");
 		properties.put("hibernate.search.default.indexBase", "D:/hibernate-index/indexes");

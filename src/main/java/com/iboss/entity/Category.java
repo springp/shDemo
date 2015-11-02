@@ -11,11 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "CATEGORY")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Category {
 
 	@Id
@@ -28,6 +31,7 @@ public class Category {
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER )
 	@Fetch(value = FetchMode.SUBSELECT)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private List<TechnologyStack> technologyStack;
 
 	public Long getId() {

@@ -12,8 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
 @Table(name = "TECHNOLOGY_STACK")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class TechnologyStack {
 
 	@Id
@@ -29,6 +33,7 @@ public class TechnologyStack {
 	private Category category;
 
 	@OneToMany(mappedBy = "technologyStack")
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private List<SkillSet> skillSets;
 	
 	public Long getId() {

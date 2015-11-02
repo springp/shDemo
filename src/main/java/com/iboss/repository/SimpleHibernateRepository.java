@@ -55,7 +55,7 @@ public abstract class SimpleHibernateRepository<T, PK extends Serializable> {
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	public List<T> findAll() {
-		return getSessionFactory().getCurrentSession().createCriteria(entity).list();
+		return getSessionFactory().getCurrentSession().createCriteria(entity).setCacheable(true).list();
 	}
 
 	@SuppressWarnings("unchecked")
