@@ -1,6 +1,9 @@
 package com.iboss;
 
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,7 +31,7 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 @ComponentScan({ "com.iboss.*" })
 @PropertySource(value = { "classpath:configuration.properties" })
 @Import(DatabaseConfiguration.class)
-public class IBossApplication extends WebMvcConfigurerAdapter {
+public class IBossApplication extends WebMvcConfigurerAdapter implements BeanPostProcessor{
 
 	private static final Logger LOGGER = Logger.getLogger(IBossApplication.class);
 
@@ -100,5 +103,19 @@ public class IBossApplication extends WebMvcConfigurerAdapter {
 		tilesConfigurer.setDefinitionsFactoryClass(TilesConfiguration.class);
 
 		return tilesConfigurer;
+	}
+
+	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+		return bean;
+	}
+
+	/**
+	 * Method used to set application initial configurations.
+	 */
+	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+		BeanUtilsBean.getInstance().getConvertUtils().register(false, false, 0);		
+		return bean;
 	}	
+	
+	
 }

@@ -77,7 +77,7 @@ public class JobsControllerTest {
 
 		try {
 			modelAndView = jobsController.postJob(request, response, jobBO);
-			ModelAndViewAssert.assertViewName(modelAndView, "list_jobs");
+			ModelAndViewAssert.assertViewName(modelAndView, "list-client-jobs");
 			LOGGER.info("TEST post job completed.....");
 
 		} catch (IOException e) {

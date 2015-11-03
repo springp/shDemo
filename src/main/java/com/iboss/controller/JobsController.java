@@ -42,7 +42,6 @@ public class JobsController {
 	@Autowired
 	CategoryService categoryService;
 	
-	
 	@RequestMapping(value = "/search-jobs", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView searchJobs(HttpServletRequest request, HttpServletResponse response, @PathVariable Map<String, String> pathVariables) throws IOException {
 		LOGGER.info("Inside / path.....");
@@ -70,7 +69,6 @@ public class JobsController {
 		return new ModelAndView("list-client-jobs", map);		
 	}	
 	
-	
 	@RequestMapping(value = "/view-post-job.htm", method = { RequestMethod.GET })
 	public ModelAndView viewPostJob(HttpServletRequest request, HttpServletResponse response, @PathVariable Map<String, String> pathVariables) throws IOException {
 		LOGGER.info("Inside / view post job.....");
@@ -91,11 +89,10 @@ public class JobsController {
 		return new ModelAndView("list-client-jobs");
 	}
 	
-	
 	@RequestMapping(value = "/post-job.htm", method = { RequestMethod.POST })
 	public ModelAndView postJob(HttpServletRequest request, HttpServletResponse response,  @ModelAttribute("jobBO") JobBO job) throws IOException {
 		LOGGER.info("Controller : Inside post job");
-		ModelAndView modelAndView = new ModelAndView("list_jobs");
+		ModelAndView modelAndView = new ModelAndView("list-client-jobs");
 		try {
 			
 			//TODO: set logged in client id from session
@@ -105,6 +102,23 @@ public class JobsController {
 			LOGGER.debug("Controller : New job has been posted in category - " + newJob.getCategoryId());
 		} catch (Exception e) {
 			LOGGER.error("Error while posting new JOB", e);
+		}
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/job-details.htm", method = { RequestMethod.GET })
+	public ModelAndView viewJobDetails(HttpServletRequest request, HttpServletResponse response, @RequestParam("jobId") String jobUUID) throws IOException {
+		
+		LOGGER.info("Controller : Inside post job");
+		ModelAndView modelAndView = new ModelAndView("client/client-job_details");
+		try {
+			//TODO: Remove hard coded user UUID.
+			String userUUID = "b000a288-17c1-4646-8cc5-c81fab18242d";
+			Job job = jobsService.findByUserUUIDAndJobUUID(userUUID, jobUUID);
+			modelAndView.addObject("job", job);			
+			LOGGER.debug("Controller : Found job with UUID - " + jobUUID);
+		} catch (Exception e) {
+			LOGGER.error("Error while fetching job details", e);
 		}
 		return modelAndView;
 	}

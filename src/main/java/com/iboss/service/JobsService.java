@@ -76,5 +76,24 @@ public class JobsService {
 		LOGGER.info("SERVICE - List jobs completed");
 		return results;
 	}
+
+	public Job findByUserUUIDAndJobUUID(String userUUID, String jobUUID) {
+		LOGGER.info("SERVICE - Inside job details");
+		Job job = null;
+		try {
+
+			LOGGER.debug("SERVICE - Get job details for UserUUID" + userUUID + " and JobUUID " + jobUUID);
+			job = jobsRepository.findByUserUUIDAndJobUUID(userUUID, jobUUID);
+			LOGGER.debug("SERVICE - Found job details ");
+
+		} catch (JobException e) {
+			throw e;
+		} catch (Exception e) {
+			LOGGER.error("SERVICE - Backend server error while fetching job details", e);
+			throw new JobException("Backend server error while fetching job details", e);
+		}
+		LOGGER.info("SERVICE - List jobs completed");
+		return job;
+	}
 }
 

@@ -2,7 +2,9 @@ package com.iboss.repository;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -59,5 +61,30 @@ public class JobsRepository extends SimpleHibernateRepository<Job, Long> {
 			throw new JobException("Backend server error while listing jobs JOBs", e);
 		}
 		return results;
+	}
+	
+	@Transactional(readOnly = true)
+	public Job findByUserUUIDAndJobUUID(String userUUID, String jobUUID) {
+		Job result = null;
+		try {			
+			Query query = getSessionFactory().getCurrentSession().createQuery("FROM Job j WHERE j.client.userUUID = :userUUID AND j.jobUUID = :jobUUID");
+			query.setParameter("userUUID", userUUID);
+			query.setParameter("jobUUID", jobUUID);
+			
+			@SuppressWarnings("rawtypes")
+			List jobs = query.list() ; 
+			
+			if (CollectionUtils.isNotEmpty(jobs)){
+				result = (Job) jobs.get(0);
+			} else {
+				throw new JobException("Job does not exist.");
+			}
+			
+		} catch (JobException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new JobException("Backend server error while fetching job details", e);
+		}
+		return result;
 	}
 }

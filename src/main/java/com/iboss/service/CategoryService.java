@@ -1,8 +1,8 @@
 package com.iboss.service;
 
+import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,6 @@ import com.iboss.repository.SkillsetRepossitory;
 @Service
 public class CategoryService {
 	
-	private static final Logger LOGGER = Logger.getLogger(CategoryService.class);
-
 	@Autowired
 	CategoryRepository categoryRepository;
 
@@ -25,12 +23,19 @@ public class CategoryService {
 	
 //	@Transactional
 	public List<Category> findAll() {
+		Date date1 = new Date();
 		List<Category> categories = categoryRepository.findAll();
+		Date date2 = new Date();
+		System.out.println("Get All Cat Retrieve time: ---------------- " + (date2.getTime() - date1.getTime()));
 		return categories;
 	}
 
 	public Category findById(Long id) {
-		return categoryRepository.findById(id);
+		Date date1 = new Date();
+		Category cat = categoryRepository.findById(id);
+		Date date2 = new Date();
+		System.out.println("Get All Cat Retrieve time: ---------------- " + (date2.getTime() - date1.getTime()));
+		return cat;
 	}
 	
 	public List<SkillSet> searchSkills(Long subCatId) {

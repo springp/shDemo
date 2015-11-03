@@ -300,6 +300,13 @@
 			<version>1.7.5</version>
 		</dependency>
 		
+		<!-- PAYPAL dependency -->
+		<dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+		
 		<!-- JUNIT dependency -->
 		<dependency>
 			<groupId>org.mockito</groupId>

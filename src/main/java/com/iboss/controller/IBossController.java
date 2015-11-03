@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -33,9 +34,6 @@ public class IBossController {
 	@RequestMapping(value = "/" , method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView welcomePage(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		LOGGER.info("Inside / path.....");
-		
-		//BeanUtilsBean.getInstance().getConvertUtils().register(false, false, 0);
-		
 		return new ModelAndView("forward:/home.htm");
 	}
 	

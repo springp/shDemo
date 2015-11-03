@@ -5,6 +5,9 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="span2" style="float: right;">
+				Posted Jobs
+			</div>
+			<div class="span2" style="float: right;">
 				<button type="submit" class="btn btn-primary" style="width: 100%;" id="btn_post_jobs">Post</button>
 			</div>
 		</div>
@@ -35,7 +38,7 @@
 					<tbody>
 						<c:forEach items="${jobs}" var="job">
 							<tr>
-								<td><a href="">${job.jobName}</a></td>
+								<td><a href="job-details.htm?jobId=${job.jobUUID}">${job.jobName}</a></td>
 								<td>${job.jobStatus}</td>
 								<td>${job.createdDate}</td>
 								<td>${job.client.firstName} ${job.client.lastName}</td>
