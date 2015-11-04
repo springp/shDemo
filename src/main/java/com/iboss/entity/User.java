@@ -33,6 +33,10 @@ public class User {
 		this.id = userId;
 	}
 	
+	public User(String userUUID) {
+		this.userUUID = userUUID;
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")

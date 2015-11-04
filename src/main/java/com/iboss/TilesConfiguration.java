@@ -50,6 +50,8 @@ public final class TilesConfiguration implements DefinitionsFactory {
 		addDefaultLayoutDef("search", "Search Jobs", "/WEB-INF/views/search.jsp");
 		addDefaultLayoutDef("post-job", "Post Job", "/WEB-INF/views/post-job.jsp");
 		addDefaultLayoutDef("list-client-jobs", "Jobs", "/WEB-INF/views/list-client-jobs.jsp");
-		addDefaultLayoutDef("client-job_details", "Job Details", "/WEB-INF/views/client/client-job_details.jsp");
+		addDefaultLayoutDef("client/client-job_details", "Job Details", "/WEB-INF/views/client/client-job_details.jsp");
+		
+		addDefaultLayoutDef("user/my-jobs", "Job Details", "/WEB-INF/views/user/my-jobs.jsp");
 	}
 }

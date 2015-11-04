@@ -4,7 +4,7 @@
 	<h2></h2>
 	<div class="row">
 		<div class="col-sm-12">
-			<div class="span2" style="float: right;">
+			<div class="span2" style="float: left;">
 				Posted Jobs
 			</div>
 			<div class="span2" style="float: right;">

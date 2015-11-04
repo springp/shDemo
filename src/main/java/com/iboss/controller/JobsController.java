@@ -51,7 +51,6 @@ public class JobsController {
 	@RequestMapping(value = "/search-jobs/**", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView filterJobs(HttpServletRequest request, HttpServletResponse response, @PathVariable Map<String, String> pathVariables) throws IOException {
 		LOGGER.info("Inside / path.....");
-		//String[] filters = AppUtils.splitURI(request);
 		return new ModelAndView("forward:/home.htm");
 	}	
 	
@@ -82,7 +81,6 @@ public class JobsController {
 			map.put("jobCategories", categories);
 			map.put("jobBO", jobBO);
 			
-			//return new ModelAndView("post-job", "jobBO", jobBO);
 			return new ModelAndView("post-job", map);
 		} catch (Exception e) {
 		}
@@ -114,6 +112,7 @@ public class JobsController {
 		try {
 			//TODO: Remove hard coded user UUID.
 			String userUUID = "b000a288-17c1-4646-8cc5-c81fab18242d";
+			
 			Job job = jobsService.findByUserUUIDAndJobUUID(userUUID, jobUUID);
 			modelAndView.addObject("job", job);			
 			LOGGER.debug("Controller : Found job with UUID - " + jobUUID);

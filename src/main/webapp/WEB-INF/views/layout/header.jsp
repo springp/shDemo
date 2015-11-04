@@ -18,6 +18,7 @@
 				<li><a href="#about">About</a></li>
 				<li><a href="#contact">Contact</a></li>
 				<li><a href="list-client-jobs.htm">Post</a></li>
+				<li><a href="my-jobs.htm">My Jobs</a></li>
 				<li class="dropdown"><a aria-expanded="false"
 					aria-haspopup="true" role="button" data-toggle="dropdown"
 					class="dropdown-toggle" href="#">Dropdown <span class="caret"></span></a>

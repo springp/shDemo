@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.iboss.entity.Job;
+import com.iboss.entity.JobContract;
 import com.iboss.enums.JobStatus;
 import com.iboss.exceptions.JobException;
 
@@ -58,7 +59,26 @@ public class JobsRepository extends SimpleHibernateRepository<Job, Long> {
 			results = criteria.list();
 		
 		} catch (Exception e) {
-			throw new JobException("Backend server error while listing jobs JOBs", e);
+			throw new JobException("Backend server error while listing JOBs", e);
+		}
+		return results;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<JobContract> listContracts(String userUUID, String status) {
+		List<JobContract> results = null;
+		try {
+			
+			Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(JobContract.class).createAlias("user", "u");			
+			criteria.add(Restrictions.eq("u.userUUID", userUUID));
+			if (!StringUtils.isEmpty(status) && !JobStatus.ALL.name().equalsIgnoreCase(status)){
+				criteria.add(Restrictions.eq("job.jobStatus", status));
+			}
+			results = criteria.list();
+		
+		} catch (Exception e) {
+			throw new JobException("Backend server error while listing user's JOBs", e);
 		}
 		return results;
 	}

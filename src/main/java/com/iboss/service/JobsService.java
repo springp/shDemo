@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.iboss.bo.JobBO;
 import com.iboss.entity.Job;
+import com.iboss.entity.JobContract;
 import com.iboss.enums.JobStatus;
 import com.iboss.exceptions.JobException;
 import com.iboss.repository.JobsRepository;
@@ -67,6 +68,23 @@ public class JobsService {
 			
 			LOGGER.debug("SERVICE - List jobs for UserID" + userId + " and with status " + status);
 			results = jobsRepository.listJobs(userId, status);
+			LOGGER.debug("SERVICE - Found # of jobs " + results);
+
+		} catch (Exception e) {
+			LOGGER.error("SERVICE - Backend server error -Error while listing jobs JOBs", e);
+			throw new JobException("Backend server error while listing jobs JOBs", e);
+		}
+		LOGGER.info("SERVICE - List jobs completed");
+		return results;
+	}
+	
+	public List<JobContract> listContracts(String userUUID, String status) {
+		LOGGER.info("SERVICE - Inside List jobs");
+		List<JobContract> results = null;
+		try {
+			
+			LOGGER.debug("SERVICE - List jobs for UserID" + userUUID + " and with status " + status);
+			results = jobsRepository.listContracts(userUUID, status);
 			LOGGER.debug("SERVICE - Found # of jobs " + results);
 
 		} catch (Exception e) {
